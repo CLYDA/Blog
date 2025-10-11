@@ -34,16 +34,16 @@ class Post(models.Model):
     description = models.TextField(verbose_name="توضیحات")
     slug = models.SlugField(max_length=250, verbose_name="اسلاگ")
     # date
-    publish = jmodels.jDateTimeField(default=timezone.now, verbose_name="تاریخ انتشار")
-    created = jmodels.jDateTimeField(auto_now_add=True)
-    updated = jmodels.jDateTimeField(auto_now=True)
+    publish = models.DateTimeField(default=timezone.now, verbose_name="تاریخ انتشار")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     # choice fields
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT, verbose_name="وضعیت")
     reading_time = models.PositiveIntegerField(verbose_name="زمان مطالعه")
     category = models.CharField( verbose_name="دسته بندی", max_length=20, choices=CATEGORY_CHOICES, default='سایر')
 
     # objects = models.Manager()
-    objects = jmodels.jManager()
+    objects = models.Manager()
     published = PublishedManager()
 
     class Meta:
@@ -91,8 +91,8 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments", verbose_name="پست")
     name = models.CharField(max_length=250, verbose_name="نام")
     body = models.TextField(verbose_name="متن کامنت")
-    created = jmodels.jDateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
-    updated = jmodels.jDateTimeField(auto_now=True, verbose_name="تاریخ ویرایش")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
+    updated = models.DateTimeField(auto_now=True, verbose_name="تاریخ ویرایش")
     active = models.BooleanField(default=False, verbose_name="وضعیت")
 
     class Meta:
@@ -114,7 +114,7 @@ class Image(models.Model):
 
     title = models.CharField(max_length=250, verbose_name="عنوان", null=True, blank=True)
     description = models.TextField(verbose_name="توضیحات", null=True, blank=True)
-    created = jmodels.jDateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['created']
@@ -134,7 +134,7 @@ class Image(models.Model):
 
 class Account(models.Model):
     user = models.OneToOneField(User, related_name="account", on_delete=models.CASCADE)
-    date_of_birth = jmodels.jDateField(verbose_name="تاریخ تولد", blank=True, null=True)
+    date_of_birth = models.DateField(verbose_name="تاریخ تولد", blank=True, null=True)
     bio = models.TextField(verbose_name="بایو", null=True, blank=True)
     photo = ResizedImageField(verbose_name="تصویر", upload_to="account_images/", size=[500, 500], quality=60, crop=['middle', 'center'], blank=True, null=True)
     job = models.CharField(max_length=250, verbose_name="شغل", null=True, blank=True)

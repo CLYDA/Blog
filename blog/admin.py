@@ -1,7 +1,5 @@
 from django.contrib import admin
 from .models import *
-from django_jalali.admin.filters import JDateFieldListFilter
-import django_jalali.admin as jadmin
 # Register your models here.
 
 # admin.sites.AdminSite.site_header = "پنل مدیریت جنگو"
@@ -22,7 +20,7 @@ class CommentInline(admin.TabularInline):
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'author','category', 'publish', 'status']
     ordering = ['title', 'publish']
-    list_filter = ['status', ('publish', JDateFieldListFilter), 'author']
+    list_filter = ['status', 'publish', 'author']
     search_fields = ['title', 'description']
     raw_id_fields = ['author']
     date_hierarchy = 'publish'
@@ -42,7 +40,7 @@ class TicketAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['post', 'name', 'created', 'active']
-    list_filter = ['active', ('created', JDateFieldListFilter), ('updated', JDateFieldListFilter), ]
+    list_filter = ['active', 'created', 'updated']
     search_fields = ['name', 'body']
     list_editable = ['active']
     # autocomplete_fields = ['post']
