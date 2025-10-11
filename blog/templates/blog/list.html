@@ -60,7 +60,11 @@
 									<div class="nav-link">
 										<div class="d-flex align-items-center position-relative">
 											<div class="avatar avatar-xs">
-												<img class="avatar-img rounded-circle" src="{{ post.author.account.photo.url }}" alt="avatar">
+												{% if post.author.account.photo %}
+                                                  <img class="avatar-img rounded-circle" src="{{ post.author.account.photo.url }}" alt="avatar">
+                                                {% else %}
+                                                  <img class="avatar-img rounded-circle" src="{% static 'images/default-avatar.png' %}" alt="avatar">
+                                                {% endif %}
 											</div>
 											<span class="ms-3">توسط <a href="#" class="stretched-link text-reset btn-link">{{ post.author }}</a></span>
 										</div>

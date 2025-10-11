@@ -40,7 +40,11 @@ Inner intro START -->
                   <div class="nav-link">
                     <div class="d-flex align-items-center text-white position-relative">
                       <div class="avatar avatar-sm">
-                        <img class="avatar-img rounded-circle" src="{{post.author.account.photo.url}}" alt="avatar">
+                        {% if post.author.account.photo %}
+                          <img class="avatar-img rounded-circle" src="{{ post.author.account.photo.url }}" alt="avatar">
+                        {% else %}
+                          <img class="avatar-img rounded-circle" src="{% static 'images/default-avatar.png' %}" alt="avatar">
+                        {% endif %}
                       </div>
                       <span class="ms-3">با <a href="#" class="stretched-link text-reset btn-link">{{ post.author }}</a></span>
                     </div>
@@ -87,7 +91,11 @@ Main START -->
 					<!-- Avatar -->
 					<a href="#">
 						<div class="avatar avatar-xxl me-2 me-md-4">
-							<img class="avatar-img rounded-circle" src="{{post.author.account.photo.url}}" alt="avatar">
+							{% if post.author.account.photo %}
+							  <img class="avatar-img rounded-circle" src="{{ post.author.account.photo.url }}" alt="avatar">
+							{% else %}
+							  <img class="avatar-img rounded-circle" src="{% static 'images/default-avatar.png' %}" alt="avatar">
+							{% endif %}
 						</div>
 					</a>
 					<!-- Info -->
