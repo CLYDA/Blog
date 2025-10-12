@@ -13,7 +13,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    last_post = Post.published.all().order_by('-publish')[0]
+    posts = Post.published.all().order_by('-publish')
+    last_post = posts[0] if posts else None
     return render(request, "blog/index.html", {"last_post": last_post})
 
 
