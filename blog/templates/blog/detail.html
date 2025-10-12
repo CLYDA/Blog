@@ -137,15 +137,19 @@ Main START -->
 
 				<!-- Reply START -->
 				<div>
-					<h3>ثبت دیدگاه</h3>
-					<small>آدرس ایمیل شما منتشر نخواهد شد.</small>
-					<form class="row g-3 mt-2" method="post" action="{% url 'blog:post_comment' post.id %}" >
-						{% csrf_token %}
-						{{ form.as_div }}
-					  <div class="col-12">
-					    <button type="submit" class="btn btn-primary">ثبت</button>
-					  </div>
-					</form>
+					{% if user.is_authenticated %}
+					  <h3>ثبت دیدگاه</h3>
+					  <small>آدرس ایمیل شما منتشر نخواهد شد.</small>
+					  <form class="row g-3 mt-2" method="post" action="{% url 'blog:post_comment' post.id %}" >
+					    {% csrf_token %}
+					    {{ form.as_div }}
+					    <div class="col-12">
+					      <button type="submit" class="btn btn-primary">ثبت</button>
+					    </div>
+					  </form>
+					{% else %}
+					  <div class="alert alert-warning mt-4">برای ثبت دیدگاه باید وارد حساب کاربری شوید.</div>
+					{% endif %}
 				</div>
 				<!-- Reply END -->
 			</div>
@@ -170,10 +174,6 @@ Main START -->
 							<h6 class="m-0 text-primary"><a href="{% url 'blog:post_list_category' 'بلاکچین' %}">بلاکچین</a></h6>
 						</div>
 						<div class="d-flex justify-content-between align-items-center bg-success bg-opacity-10 rounded p-2 position-relative">
-							<h6 class="m-0 text-success"><a href="{% url 'blog:post_list_category' 'سایر' %}">سایر</a></h6>
-						</div>
-					</div>
-
 
 					<div class="mt-4">
 						<a href="#" class="d-block card-img-flash">

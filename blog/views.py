@@ -180,10 +180,10 @@ def edit_post(request, post_id):
 #     else:
 #         form = LoginForm()
 #     return render(request, 'forms/login.html', {'form': form})
-
+@login_required
 def log_out(request):
     logout(request)
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('blog:post_list')
 
 
 def register(request):
